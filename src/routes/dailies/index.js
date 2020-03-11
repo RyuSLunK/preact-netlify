@@ -3,21 +3,22 @@ import { Link } from 'preact-router';
 import { usePrerenderData } from '@preact/prerender-data-provider';
 import style from './style';
 
-const blogs = (props) => {
+const dailies = (props) => {
 	const [data, isLoading] = usePrerenderData(props);
 	return (
-		<div class={style.pageBlogs}>
-			<h1 class={style.pageTitle}>My Blogs</h1>
-			{ getBlogsListing(data, isLoading) }
+		<div class={style.pageDailies}>
+			<h1 class={style.pageTitle}>My Daily Experiments</h1>
+			{ getDailiesListing(data, isLoading) }
 		</div>
 	);
 };
 
-function getBlogsListing(data, isLoading) {
+function getDailiesListing(data, isLoading) {
+    console.log('data',data)
 	if (isLoading) {
 		return (
 			<article class={style.loadingPlaceholder}>
-				<h2 class={`${style.blogtitle} loading`}>&nbsp;</h2>
+				<h2 class={`${style.dailytitle} loading`}>&nbsp;</h2>
 				<div class={`${style.loadingBody} loading`}>&nbsp;</div>
 				<div class={`${style.loadingBody} loading`}>&nbsp;</div>
 				<div class={`${style.loadingBody} loading`}>&nbsp;</div>
@@ -25,19 +26,19 @@ function getBlogsListing(data, isLoading) {
 		);
 	}
 	if (data && data.data) {
-		const { data: blogs } = data;
+		const { data: dailies } = data;
 		return (
-			<>'			'{blogs.edges.map(blog => (
-				<Link href={`/blog/${blog.id}`}>
+			<>'			'{dailies.edges.map(daily => (
+				<Link href={`/daily/${daily.id}`}>
 					<article>
-						<h2>{blog.details.title}</h2>
+						<h2>{daily.details.title}</h2>
 						<div>
 							{
-								(blog.details.tags.substr(1, blog.details.tags.length - 2).split(',') || []).map(tag => <span class={style.tag}>{tag}</span>)
+								(daily.details.tags.substr(1, daily.details.tags.length - 2).split(',') || []).map(tag => <span class={style.tag}>{tag}</span>)
 							}
 						</div>
 						<p class={style.preview}>
-							{blog.preview}
+							{daily.preview}
 						</p>
 					</article>
 				</Link>
@@ -46,4 +47,4 @@ function getBlogsListing(data, isLoading) {
 	}
 }
 
-export default blogs;
+export default dailies;

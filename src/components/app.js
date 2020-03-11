@@ -9,7 +9,8 @@ import Blogs from '../routes/blogs';
 import Blog from '../routes/blog';
 import Contact from '../routes/contact';
 import ContactSuccess from '../routes/contact-success';
-
+import Dailies from '../routes/dailies';
+import Daily from '../routes/daily';
 export default class App extends Component {
 
 	/** Gets fired when the route changes.
@@ -31,6 +32,8 @@ export default class App extends Component {
 						<Blog path="/blog/:name" />
 						<Contact path="/contact/" />
 						<ContactSuccess path="/contact/success" />
+						<Dailies path="/dailies/" />
+						<Daily path="/daily/:name" />
 					</Router>
 				</div>
 			</Provider>
